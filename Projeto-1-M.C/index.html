@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head> 
+
+<script> 
+
+
+// Global variables
+   
+      var canvas; // canvas
+      var ctx; // context
+      var desenho_box_X = 0; // current desenho_box_ position X
+      var desenho_box_Y = 0; // current desenho_box_ position Y     
+      var tamanho_box_X=300, tamanho_box_Y=300;
+      var box_X=30, box_Y=30;
+      var parede_x=10,parede_y=100;
+
+      // This function is called on page load.
+
+
+      function canvas() {
+
+    
+        canvas = document.getElementById("myCanvas");
+           ctx = canvas.getContext("2d");
+         
+        setInterval(Atualizar, 10);
+      
+        window.addEventListener('keydown', _controles, true);
+      }
+
+
+      function desenhaFundo() {
+          ctx.fillStyle = "gray";
+          ctx.rect(0, 0, tamanho_box_X, tamanho_box_Y);
+          ctx.fill();         
+      }
+
+      function desenhaQuadrado() {
+        ctx.beginPath();     
+         ctx.rect(desenho_box_X, desenho_box_Y, box_X, box_Y); 
+        ctx.closePath();
+        ctx.fillStyle = "blue";
+        ctx.fill(); 
+      }
+       function desenhaParede() {
+        ctx.beginPath();     
+        ctx.rect(150, 0, 30, 120); 
+        ctx.closePath();
+        ctx.fillStyle = "black";
+        ctx.fill(); 
+      }
+
+      function Atualizar() {
+        desenhaFundo();
+        desenhaQuadrado();
+         desenhaParede();
+
+      }
+
+
+
+      function _controles(evt) {
+
+         
+       
+       
+
+        switch (evt.keyCode) {
+
+          // Left 
+        case 37:
+        if(desenho_box_X - box_X!=150 || desenho_box_Y + box_Y>120){
+          desenho_box_X = desenho_box_X - box_X;
+          }
+          if (desenho_box_X < 0) {
+           desenho_box_X = 0;
+            
+          }
+          break;
+
+          // Right 
+        case 39:
+        if(desenho_box_X + box_X!=150 || desenho_box_Y + box_Y>120)
+          desenho_box_X = desenho_box_X + box_X;
+          if (desenho_box_X > tamanho_box_X - box_X) {
+            
+            desenho_box_X = tamanho_box_X - box_X;
+            
+          }
+          break;
+
+          // Down 
+        case 40:
+          desenho_box_Y = desenho_box_Y + box_Y;
+          if (desenho_box_Y > tamanho_box_Y - box_Y) {
+            
+            desenho_box_Y = tamanho_box_Y - box_Y;
+           
+          }
+          break;
+
+          // Up 
+        case 38:
+        if(desenho_box_X + box_X!=180 || desenho_box_Y + box_Y>150)
+          desenho_box_Y = desenho_box_Y - box_Y;
+          if (desenho_box_Y < 0) {
+          
+            desenho_box_Y = 0;
+            
+          }
+          break;
+
+        }
+
+        
+      
+      }
+
+
+</script> 
+
+</head> 
+
+
+<body onload="canvas()">
+<p id="demo"></p>
+
+<canvas id="myCanvas" width="300" height="300">
+
+</canvas>
+
+</body>
+</html>
+
